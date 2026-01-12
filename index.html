@@ -206,6 +206,12 @@
             padding: 12px 8px;
             text-align: center;
             transition: all 0.2s ease;
+             /* Flexbox pour aligner parfaitement le contenu verticalement */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
         }
 
         #saunier-form-container .quantity-item.selected {
@@ -224,6 +230,9 @@
             margin-bottom: 6px;
             display: flex;
             justify-content: center;
+            /* Pousser l'icône vers le haut */
+            flex-grow: 1; 
+            align-items: center;
         }
 
         #saunier-form-container .quantity-icon svg {
@@ -248,6 +257,7 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            margin-top: auto; /* Force les boutons vers le bas */
         }
 
         #saunier-form-container .qty-btn {
@@ -660,36 +670,32 @@
             color: #E64A19;
         }
 
-        @media (max-width: 768px) {
-            #saunier-form-container .quantities-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            #saunier-form-container .options-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            #saunier-form-container .form-card {
-                max-width: 100%;
-            }
-        }
+        /* --- C'EST ICI LA MODIFICATION POUR LE RESPONSIVE --- */
+        
+        /* J'ai supprimé la règle @media (max-width: 768px) qui forçait 2 colonnes trop tôt.
+           Maintenant, on ne passe en 2 colonnes qu'en dessous de 480px.
+        */
 
         @media (max-width: 480px) {
             #saunier-form-container .form-card {
-                padding: 24px 28px;
+                padding: 20px 15px; /* Marges réduites */
                 border-radius: 16px;
             }
 
-            #saunier-form-container .quantities-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+            #saunier-form-container .quantities-grid, 
+            #saunier-form-container .options-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 colonnes UNIQUEMENT sur mobile */
+                gap: 6px;
             }
 
             #saunier-form-container .quantity-item {
-                padding: 10px 6px;
+                padding: 10px 4px;
+                min-height: 130px;
                 border-radius: 10px;
+            }
+            
+            #saunier-form-container .quantity-label {
+                font-size: 11px;
             }
 
             #saunier-form-container .qty-btn {
@@ -699,11 +705,9 @@
                 min-height: 30px;
                 border-radius: 7px;
             }
-
-            #saunier-form-container .options-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
+            
+            #saunier-form-container .quantity-icon svg { width: 30px; height: 30px; }
+            #saunier-form-container .form-title { font-size: 20px; }
 
             #saunier-form-container .option-card {
                 padding: 10px 6px;
@@ -723,12 +727,13 @@
                 bottom: 0;
                 background: white;
                 padding: 12px 0;
-                margin-left: -16px;
-                margin-right: -16px;
-                padding-left: 16px;
-                padding-right: 16px;
+                margin-left: -15px;
+                margin-right: -15px;
+                padding-left: 15px;
+                padding-right: 15px;
                 box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
                 border-radius: 16px 16px 0 0;
+                z-index: 10;
             }
         }
     </style>
@@ -750,10 +755,8 @@
             </div>
 
             <form id="devisForm">
-                <!-- Honeypot anti-spam (caché) -->
                 <input type="text" name="_honeypot" style="display:none !important" tabindex="-1" autocomplete="off">
 
-                <!-- Étape 1: Menuiseries (9 options avec Pergola/Véranda) -->
                 <div class="step active" data-step="1">
                     <div class="step-indicator">🪟 Vos menuiseries</div>
                     
@@ -892,7 +895,6 @@
                             </div>
                         </div>
 
-                        <!-- NOUVELLE CARTE: Pergola / Véranda -->
                         <div class="quantity-item" data-type="pergola">
                             <div class="quantity-icon">
                                 <svg viewBox="0 0 64 64" fill="none">
@@ -915,13 +917,11 @@
                         <input type="text" name="autreProjet" placeholder="Autre projet à préciser ? (optionnel)">
                     </div>
 
-                    <!-- Message d'erreur étape 1 -->
                     <div class="step-error-message" id="step1Error" style="display: none;">
                         ⚠️ Veuillez sélectionner au moins une menuiserie
                     </div>
                 </div>
 
-                <!-- Étape 2: Matériaux (CHECKBOXES - choix multiple) -->
                 <div class="step" data-step="2">
                     <div class="step-indicator">🔧 Matériau(x) souhaité(s)</div>
                     
@@ -994,13 +994,11 @@
                         </div>
                     </div>
 
-                    <!-- Message d'erreur étape 2 -->
                     <div class="step-error-message" id="step2Error" style="display: none;">
                         ⚠️ Veuillez sélectionner au moins un matériau
                     </div>
                 </div>
 
-                <!-- Étape 3: Type de bien -->
                 <div class="step" data-step="3">
                     <div class="step-indicator">🏠 Type de bien</div>
                     
@@ -1016,7 +1014,6 @@
                     </div>
                 </div>
 
-                <!-- Étape 4: Délai -->
                 <div class="step" data-step="4">
                     <div class="step-indicator">📅 Délai souhaité</div>
                     
@@ -1040,7 +1037,6 @@
                     </div>
                 </div>
 
-                <!-- Étape 5: Détails du projet -->
                 <div class="step" data-step="5">
                     <div class="step-indicator">📍 Détails du projet</div>
                     
@@ -1078,11 +1074,9 @@
                     </div>
                 </div>
 
-                <!-- Étape 6: Coordonnées avec récapitulatif -->
                 <div class="step" data-step="6">
                     <div class="step-indicator">🎉 Dernière étape !</div>
                     
-                    <!-- Récapitulatif -->
                     <div class="recap-section" id="recapSection">
                         <div class="recap-title">📋 Récapitulatif de votre demande</div>
                         <div id="recapContent"></div>
@@ -1136,7 +1130,6 @@
                     </div>
                 </div>
 
-                <!-- Message de succès -->
                 <div class="step" data-step="7">
                     <div class="success-message">
                         <div class="success-icon">
@@ -1150,7 +1143,6 @@
                     </div>
                 </div>
 
-                <!-- Boutons de navigation -->
                 <div class="buttons" id="navigationButtons">
                     <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">← Retour</button>
                     <button type="button" class="btn btn-primary" id="nextBtn">Continuer</button>
