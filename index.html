@@ -764,7 +764,7 @@
                             <div class="quantity-icon">
                                 <svg viewBox="0 0 64 64" fill="none">
                                     <rect x="12" y="8" width="40" height="48" rx="3" fill="#FFE5E0" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="32" y1="8" x2="32" y2="56" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="32" y="8" x2="32" y2="56" stroke="currentColor" stroke-width="2"/>
                                     <line x1="12" y1="32" x2="52" y2="32" stroke="currentColor" stroke-width="2"/>
                                     <circle cx="40" cy="32" r="2" fill="currentColor"/>
                                 </svg>
@@ -956,9 +956,9 @@
                                 <div class="icon">
                                     <svg width="40" height="40" viewBox="0 0 56 56" fill="none">
                                         <rect x="10" y="10" width="36" height="36" rx="4" fill="#EFEBE9" stroke="#795548" stroke-width="3"/>
-                                        <line x1="18" y1="10" x2="18" y2="46" stroke="#A1887F" stroke-width="2.5"/>
-                                        <line x1="28" y1="10" x2="28" y2="46" stroke="#A1887F" stroke-width="2.5"/>
-                                        <line x1="38" y1="10" x2="38" y2="46" stroke="#A1887F" stroke-width="2.5"/>
+                                        <line x1="18" y="10" x2="18" y2="46" stroke="#A1887F" stroke-width="2.5"/>
+                                        <line x1="28" y="10" x2="28" y2="46" stroke="#A1887F" stroke-width="2.5"/>
+                                        <line x1="38" y="10" x2="38" y2="46" stroke="#A1887F" stroke-width="2.5"/>
                                     </svg>
                                 </div>
                                 <div class="title">Bois</div>
@@ -971,8 +971,8 @@
                                     <svg width="40" height="40" viewBox="0 0 56 56" fill="none">
                                         <rect x="10" y="10" width="16" height="36" rx="2" fill="#EFEBE9" stroke="#795548" stroke-width="2.5"/>
                                         <rect x="30" y="10" width="16" height="36" rx="2" fill="#CFD8DC" stroke="#607D8B" stroke-width="2.5"/>
-                                        <line x1="14" y1="10" x2="14" y2="46" stroke="#A1887F" stroke-width="2"/>
-                                        <line x1="38" y1="10" x2="38" y2="46" stroke="#607D8B" stroke-width="2"/>
+                                        <line x1="14" y="10" x2="14" y2="46" stroke="#A1887F" stroke-width="2"/>
+                                        <line x1="38" y="10" x2="38" y2="46" stroke="#607D8B" stroke-width="2"/>
                                     </svg>
                                 </div>
                                 <div class="title">Mixte</div>
@@ -1672,6 +1672,20 @@
                 })
                 .then(() => {
                     console.log('✅ Lead envoyé avec succès vers Google Sheets !');
+                    
+                    // --- AJOUT POUR GTM : ENVOI DU SIGNAL DE CONVERSION ---
+                    // A déclencher quand le formulaire est validé et le message affiché
+                    try {
+                        window.parent.postMessage({
+                        'event': 'form_success',
+                        'category': 'lead',
+                        'action': 'submit'
+                        }, '*');
+                    } catch (e) {
+                        console.log('Erreur envoi message parent');
+                    }
+                    // -----------------------------------------------------
+
                     localStorage.removeItem('saunierFormData');
                     currentStep = 7;
                     showStep(currentStep);
@@ -1679,6 +1693,19 @@
                 .catch(error => {
                     console.error('❌ Erreur envoi lead:', error);
                     // Afficher quand même le message de succès (mode no-cors ne retourne pas de réponse)
+                    
+                    // --- AU CAS OU (SI ERREUR RESEAU MAIS SUCCES AFFICHE) ---
+                    try {
+                        window.parent.postMessage({
+                        'event': 'form_success',
+                        'category': 'lead',
+                        'action': 'submit'
+                        }, '*');
+                    } catch (e) {
+                        console.log('Erreur envoi message parent');
+                    }
+                    // -----------------------------------------------------
+
                     localStorage.removeItem('saunierFormData');
                     currentStep = 7;
                     showStep(currentStep);
