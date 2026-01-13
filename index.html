@@ -231,10 +231,11 @@
             height: 40px;
         }
 
+        /* --- MODIF 1 : Titres des cartes Menuiseries --- */
         #saunier-form-container .quantity-label {
             font-weight: 600;
             color: #1a1a1a;
-            font-size: 11px;
+            font-size: 14px; /* Augmenté à 14px */
             margin-bottom: 8px;
             min-height: 26px;
             display: flex;
@@ -347,11 +348,12 @@
             height: 40px;
         }
 
+        /* --- MODIF 2 : Titres des cartes Matériaux --- */
         #saunier-form-container .option-card .title {
             font-weight: 600;
             color: #1a1a1a;
             margin-bottom: 2px;
-            font-size: 11px;
+            font-size: 14px; /* Augmenté à 14px */
             line-height: 1.2;
         }
 
@@ -443,10 +445,12 @@
             font-weight: 500;
         }
 
+        /* --- MODIF 3 : Titres indicateurs d'étapes (ex: 🏠 Type de bien) --- */
         #saunier-form-container .step-indicator {
             text-align: center;
-            color: #999;
-            font-size: 11px;
+            color: #555;  /* Rendu plus foncé (était #999) */
+            font-size: 15px; /* Augmenté à 15px (était 11px) */
+            font-weight: 600; /* Ajout du gras */
             margin-bottom: 12px;
         }
 
@@ -750,10 +754,8 @@
             </div>
 
             <form id="devisForm">
-                <!-- Honeypot anti-spam (caché) -->
                 <input type="text" name="_honeypot" style="display:none !important" tabindex="-1" autocomplete="off">
 
-                <!-- Étape 1: Menuiseries (9 options avec Pergola/Véranda) -->
                 <div class="step active" data-step="1">
                     <div class="step-indicator">🪟 Vos menuiseries</div>
                     
@@ -892,7 +894,6 @@
                             </div>
                         </div>
 
-                        <!-- NOUVELLE CARTE: Pergola / Véranda -->
                         <div class="quantity-item" data-type="pergola">
                             <div class="quantity-icon">
                                 <svg viewBox="0 0 64 64" fill="none">
@@ -915,13 +916,11 @@
                         <input type="text" name="autreProjet" placeholder="Autre projet à préciser ? (optionnel)">
                     </div>
 
-                    <!-- Message d'erreur étape 1 -->
                     <div class="step-error-message" id="step1Error" style="display: none;">
                         ⚠️ Veuillez sélectionner au moins une menuiserie
                     </div>
                 </div>
 
-                <!-- Étape 2: Matériaux (CHECKBOXES - choix multiple) -->
                 <div class="step" data-step="2">
                     <div class="step-indicator">🔧 Matériau(x) souhaité(s)</div>
                     
@@ -994,13 +993,11 @@
                         </div>
                     </div>
 
-                    <!-- Message d'erreur étape 2 -->
                     <div class="step-error-message" id="step2Error" style="display: none;">
                         ⚠️ Veuillez sélectionner au moins un matériau
                     </div>
                 </div>
 
-                <!-- Étape 3: Type de bien -->
                 <div class="step" data-step="3">
                     <div class="step-indicator">🏠 Type de bien</div>
                     
@@ -1016,7 +1013,6 @@
                     </div>
                 </div>
 
-                <!-- Étape 4: Délai -->
                 <div class="step" data-step="4">
                     <div class="step-indicator">📅 Délai souhaité</div>
                     
@@ -1040,7 +1036,6 @@
                     </div>
                 </div>
 
-                <!-- Étape 5: Détails du projet -->
                 <div class="step" data-step="5">
                     <div class="step-indicator">📍 Détails du projet</div>
                     
@@ -1078,11 +1073,9 @@
                     </div>
                 </div>
 
-                <!-- Étape 6: Coordonnées avec récapitulatif -->
                 <div class="step" data-step="6">
                     <div class="step-indicator">🎉 Dernière étape !</div>
                     
-                    <!-- Récapitulatif -->
                     <div class="recap-section" id="recapSection">
                         <div class="recap-title">📋 Récapitulatif de votre demande</div>
                         <div id="recapContent"></div>
@@ -1136,7 +1129,6 @@
                     </div>
                 </div>
 
-                <!-- Message de succès -->
                 <div class="step" data-step="7">
                     <div class="success-message">
                         <div class="success-icon">
@@ -1150,7 +1142,6 @@
                     </div>
                 </div>
 
-                <!-- Boutons de navigation -->
                 <div class="buttons" id="navigationButtons">
                     <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">← Retour</button>
                     <button type="button" class="btn btn-primary" id="nextBtn">Continuer</button>
