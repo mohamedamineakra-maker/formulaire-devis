@@ -461,6 +461,201 @@
         color: #666;
     }
 
+    /* ============================================ */
+    /* 🎨 AMÉLIORATIONS GRAPHIQUES - 3 SECTIONS    */
+    /* ============================================ */
+
+    /* 1️⃣ POP-UP "PROJET URGENT" - Version ultra sobre et douce */
+    #saunier-form-container .project-score {
+        display: none;
+        background: #FFF3E0;
+        border: 1px solid #FFB74D;
+        border-radius: 6px;
+        padding: 10px 12px;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #saunier-form-container .project-score-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        opacity: 0.9;
+    }
+
+    #saunier-form-container .project-score-text {
+        color: #E65100;
+        text-align: left;
+        flex: 1;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    #saunier-form-container .project-score-text strong {
+        font-size: 12px;
+        font-weight: 600;
+        display: inline;
+        margin-right: 4px;
+    }
+
+    #saunier-form-container .project-score-text br {
+        display: none;
+    }
+
+    /* 2️⃣ RÉCAPITULATIF - Version compacte */
+    #saunier-form-container .recap-section {
+        background: #FFF9F5;
+        border: 1.5px solid #FF5722;
+        border-radius: 8px;
+        padding: 14px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(255, 87, 34, 0.08);
+    }
+
+    #saunier-form-container .recap-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #FF5722;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    #saunier-form-container #recapContent {
+        background: white;
+        border-radius: 6px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    #saunier-form-container .recap-item {
+        padding: 6px 10px;
+        margin-bottom: 4px;
+        background: #fafafa;
+        border-left: 2px solid #FF5722;
+        border-radius: 3px;
+        font-size: 12px;
+        color: #333;
+        transition: background 0.2s ease;
+    }
+
+    #saunier-form-container .recap-item:hover {
+        background: #FFF5F2;
+    }
+
+    #saunier-form-container .recap-item:last-child {
+        margin-bottom: 0;
+    }
+
+    #saunier-form-container .recap-edit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 6px 12px;
+        background: white;
+        color: #FF5722;
+        border: 1px solid #FF5722;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 100%;
+        text-align: center;
+    }
+
+    #saunier-form-container .recap-edit:hover {
+        background: #FF5722;
+        color: white;
+    }
+
+    /* 3️⃣ PAGE DE CONFIRMATION - Design sobre et professionnel */
+    #saunier-form-container .success-message {
+        text-align: center;
+        padding: 40px 20px;
+        background: #FFF9F5;
+        border-radius: 12px;
+        border: 2px solid #4CAF50;
+    }
+
+    #saunier-form-container .success-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        animation: scaleIn 0.4s ease;
+    }
+
+    @keyframes scaleIn {
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    #saunier-form-container .success-icon svg {
+        width: 35px;
+        height: 35px;
+        stroke: white;
+        stroke-width: 3;
+        fill: none;
+        animation: checkmark 0.5s ease 0.2s both;
+    }
+
+    @keyframes checkmark {
+        0% { stroke-dasharray: 0 100; }
+        100% { stroke-dasharray: 100 100; }
+    }
+
+    #saunier-form-container .success-message h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 12px;
+    }
+
+    #saunier-form-container .success-message p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+
+    #saunier-form-container .success-message p strong {
+        color: #FF5722;
+        font-weight: 600;
+    }
+
+    /* Badge contact */
+    #saunier-form-container .success-message .success-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: white;
+        padding: 10px 18px;
+        border-radius: 20px;
+        margin-top: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e8e8e8;
+    }
+
+    #saunier-form-container .success-message .success-badge::before {
+        content: '📞';
+        font-size: 18px;
+    }
+
+    #saunier-form-container .success-message .success-badge-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: #333;
+    }
+
     /* MOBILE : 2 COLONNES */
     @media (max-width: 450px) {
         #saunier-form-container .quantities-grid {
@@ -491,6 +686,20 @@
             box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
             z-index: 10;
             border-top: 1px solid #f0f0f0;
+        }
+
+        #saunier-form-container .success-icon {
+            width: 60px;
+            height: 60px;
+        }
+
+        #saunier-form-container .success-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        #saunier-form-container .success-message h2 {
+            font-size: 20px;
         }
     }
 </style>
@@ -835,7 +1044,7 @@
                     <div class="step-indicator">🎉 Dernière étape !</div>
                     
                     <div class="recap-section" id="recapSection">
-                        <div class="recap-title">📋 Récapitulatif de votre demande</div>
+                        <div class="recap-title">Récapitulatif de votre demande</div>
                         <div id="recapContent"></div>
                         <span class="recap-edit" onclick="goToStep(1)">✏️ Modifier</span>
                     </div>
@@ -896,7 +1105,9 @@
                         </div>
                         <h2>🎉 Demande envoyée !</h2>
                         <p>Merci pour votre confiance. Nous vous recontactons <strong>dans les meilleurs délais</strong> pour affiner votre projet et vous proposer le meilleur devis.</p>
-                        <p style="margin-top: 15px; font-size: 12px;">Un conseiller commercial vous contactera prochainement.</p>
+                        <div class="success-badge">
+                            <span class="success-badge-text">Un conseiller commercial vous contactera prochainement</span>
+                        </div>
                     </div>
                 </div>
 
