@@ -1334,27 +1334,46 @@
             });
 
             // Upload fichiers
-            const fileInput = document.getElementById('fileInput');
+           const fileInput = document.getElementById('fileInput');
+            
             fileInput.addEventListener('change', function(e) {
                 const files = Array.from(e.target.files);
+                
+                // Sécurité 1 : Pas plus de 5 photos au total
                 if (uploadedFiles.length + files.length > 5) {
-                    alert('Maximum 5 photos');
+                    alert('Maximum 5 photos autorisées.');
                     return;
                 }
+
                 files.forEach(file => {
+                    // Sécurité 2 : Pas de fichier de plus de 5 Mo
                     if (file.size > 5 * 1024 * 1024) {
-                        alert('Fichier trop volumineux (max 5MB)');
+                        alert(`La photo "${file.name}" est trop lourde (max 5MB).`);
                         return;
                     }
-                    uploadedFiles.push({
-                        name: file.name,
-                        size: (file.size / 1024).toFixed(0) + ' KB'
-                    });
-                });
-                displayUploadedFiles();
-                saveProgress();
-            });
 
+                    // Transformation de l'image en texte pour Google Script
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        uploadedFiles.push({
+                            name: file.name,
+                            type: file.type,
+                            size: (file.size / 1024).toFixed(0) + ' KB',
+                            // C'est ICI la donnée réelle de l'image qui partira vers Google :
+                            data: e.target.result.split(',')[1] 
+                        });
+                        
+                        displayUploadedFiles();
+                        saveProgress();
+                    };
+                    
+                    // Lancement de la lecture du fichier
+                    reader.readAsDataURL(file);
+                });
+                
+                this.value = ''; // Reset pour pouvoir ré-ajouter le même fichier si besoin
+            });
             function displayUploadedFiles() {
                 const container = document.getElementById('uploadedFiles');
                 container.innerHTML = uploadedFiles.map((file, index) => `
