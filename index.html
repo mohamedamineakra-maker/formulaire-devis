@@ -140,7 +140,7 @@
         }
     }
 
-    /* --- GRILLES AVEC PLUS D'AÉRATION --- */
+    /* --- GRILLES TOUJOURS 3 COLONNES SUR DESKTOP --- */
     #saunier-form-container .quantities-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -148,31 +148,55 @@
         margin-bottom: 16px;
     }
 
+    /* 2 colonnes seulement sur tablette et mobile */
+    @media (max-width: 600px) {
+        #saunier-form-container .quantities-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
     #saunier-form-container .quantity-item {
-        background: #fafafa;
+        background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
         border: 1px solid #e8e8e8;
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 8px 6px;
         text-align: center;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #saunier-form-container .quantity-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    #saunier-form-container .quantity-item:hover::before {
+        left: 100%;
     }
 
     #saunier-form-container .quantity-item.selected {
         border-color: #FF5722;
-        background: #FFF5F2;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.15);
+        background: linear-gradient(135deg, #FFF5F2 0%, #FFE5E0 100%);
+        box-shadow: 0 4px 16px rgba(255, 87, 34, 0.2);
     }
 
     #saunier-form-container .quantity-item:hover {
         border-color: #FF5722;
-        background: #fff;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
-        transform: translateY(-2px);
+        background: linear-gradient(135deg, #ffffff 0%, #FFF8F6 100%);
+        box-shadow: 0 6px 20px rgba(255, 87, 34, 0.25);
+        transform: translateY(-3px);
     }
 
     #saunier-form-container .quantity-item:active {
-        transform: translateY(0);
+        transform: translateY(-1px);
     }
 
     /* --- ICÔNES OPTIMISÉES --- */
@@ -270,36 +294,60 @@
         animation: numberPulse 0.3s ease;
     }
 
-    /* --- OPTION CARDS AVEC PLUS D'AÉRATION --- */
+    /* --- OPTION CARDS TOUJOURS 3 COLONNES SUR DESKTOP --- */
     #saunier-form-container .options-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
     }
 
-    /* GRILLE SPÉCIALE ÉTAPE 0 : 1 colonne sur mobile, 3 sur desktop */
+    /* 2 colonnes seulement sur tablette et mobile */
+    @media (max-width: 600px) {
+        #saunier-form-container .options-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* GRILLE ÉTAPE 0 : TOUJOURS 3 COLONNES SUR DESKTOP */
     #saunier-form-container .needs-grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
         gap: 14px;
         margin-bottom: 16px;
     }
 
-    @media (min-width: 450px) {
+    /* 1 colonne sur mobile uniquement */
+    @media (max-width: 600px) {
         #saunier-form-container .needs-grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
         }
     }
 
     #saunier-form-container .option-card {
         border: 1px solid #e8e8e8;
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 8px 6px;
         text-align: center;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         position: relative;
-        background: #fafafa;
+        background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+        overflow: hidden;
+    }
+
+    #saunier-form-container .option-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    #saunier-form-container .option-card:hover::before {
+        left: 100%;
     }
 
     /* Cartes plus grandes pour l'étape 0 */
@@ -309,30 +357,46 @@
         padding: 14px 12px;
         text-align: center;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         position: relative;
-        background: #fafafa;
+        background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+        overflow: hidden;
+    }
+
+    #saunier-form-container .need-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.15), transparent);
+        transition: left 0.6s ease;
+    }
+
+    #saunier-form-container .need-card:hover::before {
+        left: 100%;
     }
 
     #saunier-form-container .need-card:hover {
         border-color: #FF5722;
-        background: white;
-        transform: translateY(-2px);
+        background: linear-gradient(135deg, #ffffff 0%, #FFF8F6 100%);
+        transform: translateY(-4px);
         box-shadow: 
-            0 2px 8px rgba(0, 0, 0, 0.1),
-            0 8px 20px rgba(255, 87, 34, 0.2);
+            0 4px 12px rgba(0, 0, 0, 0.1),
+            0 12px 28px rgba(255, 87, 34, 0.25);
     }
 
     #saunier-form-container .need-card:active {
-        transform: translateY(0);
+        transform: translateY(-2px);
     }
 
     #saunier-form-container .need-card.selected {
         border-color: #FF5722;
-        background: #FFF5F2;
+        background: linear-gradient(135deg, #FFF5F2 0%, #FFE5E0 100%);
         box-shadow: 
-            0 2px 8px rgba(0, 0, 0, 0.08),
-            0 6px 16px rgba(255, 87, 34, 0.25);
+            0 4px 12px rgba(0, 0, 0, 0.08),
+            0 8px 24px rgba(255, 87, 34, 0.3);
     }
 
     /* Animation checkmark pour les cartes sélectionnées */
@@ -388,21 +452,21 @@
 
     #saunier-form-container .option-card:hover {
         border-color: #FF5722;
-        background: white;
-        transform: translateY(-2px);
+        background: linear-gradient(135deg, #ffffff 0%, #FFF8F6 100%);
+        transform: translateY(-3px);
         box-shadow: 
-            0 2px 6px rgba(0, 0, 0, 0.08),
-            0 6px 16px rgba(255, 87, 34, 0.15);
+            0 4px 10px rgba(0, 0, 0, 0.08),
+            0 8px 20px rgba(255, 87, 34, 0.2);
     }
 
     #saunier-form-container .option-card:active {
-        transform: translateY(0);
+        transform: translateY(-1px);
     }
 
     #saunier-form-container .option-card.selected {
         border-color: #FF5722;
-        background: #FFF5F2;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+        background: linear-gradient(135deg, #FFF5F2 0%, #FFE5E0 100%);
+        box-shadow: 0 4px 16px rgba(255, 87, 34, 0.25);
     }
 
     #saunier-form-container .option-card input[type="checkbox"],
@@ -941,21 +1005,11 @@
         color: #333;
     }
 
-    /* MOBILE : ADAPTATION À LA TAILLE RÉDUITE */
-    @media (max-width: 700px) {
+    /* MOBILE : ADAPTATION FINE */
+    @media (max-width: 600px) {
         #saunier-form-container .form-card {
             max-width: 100%;
             padding: 24px;
-        }
-        
-        #saunier-form-container .quantities-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        #saunier-form-container .options-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
         }
 
         #saunier-form-container .step {
@@ -1633,28 +1687,7 @@
             
             window.addEventListener('load', () => {
                 sendHeightToParent();
-                
-                // Amélioration 8 : Préremplissage intelligent si retour
-                const saved = localStorage.getItem('saunierFormData');
-                if (saved) {
-                    const lastVisit = localStorage.getItem('saunierLastVisit');
-                    const now = Date.now();
-                    const daysSinceLastVisit = lastVisit ? (now - parseInt(lastVisit)) / (1000 * 60 * 60 * 24) : 999;
-                    
-                    // Si dernière visite il y a moins de 7 jours
-                    if (daysSinceLastVisit < 7) {
-                        const shouldRestore = confirm('👋 On dirait que vous étiez déjà venu !\n\nVoulez-vous reprendre là où vous en étiez ?');
-                        if (shouldRestore) {
-                            loadProgress();
-                        } else {
-                            localStorage.removeItem('saunierFormData');
-                        }
-                    } else {
-                        // Trop vieux, on supprime
-                        localStorage.removeItem('saunierFormData');
-                    }
-                }
-                
+                loadProgress();
                 localStorage.setItem('saunierLastVisit', Date.now().toString());
             });
 
