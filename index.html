@@ -4,68 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire Devis - ETS Saunier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
     /* RESET CSS pour isoler le formulaire */
     #saunier-form-container * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
     }
 
     #saunier-form-container {
         all: initial;
         display: block;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
 
-    /* --- CONTENEUR PRINCIPAL RÉDUIT (LARGEUR) --- */
+    /* --- CONTENEUR PRINCIPAL AVEC PLUS D'AÉRATION --- */
     #saunier-form-container .form-card {
         background: white;
         border-radius: 16px;
-        padding: 24px; /* Padding compact */
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-        max-width: 500px; /* LARGEUR RÉDUITE ICI (était 650px) */
+        padding: 24px;
+        box-shadow: 
+            0 1px 3px rgba(0, 0, 0, 0.12),
+            0 10px 25px rgba(255, 87, 34, 0.08);
+        max-width: 500px;
         width: 100%;
         margin: 0 auto;
         overflow: hidden;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
     }
 
     #saunier-form-container .form-header {
         margin-bottom: 16px;
+        flex-shrink: 0;
     }
 
     #saunier-form-container .form-badge {
         display: inline-block;
         background: linear-gradient(135deg, #FF6B35 0%, #FF5722 100%);
         color: white;
-        padding: 6px 12px;
+        padding: 5px 12px;
         border-radius: 25px;
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.8px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
     }
 
     #saunier-form-container .form-title {
-        font-size: 20px; /* Titre réduit */
+        font-size: 19px;
         font-weight: 800;
         color: #1a1a1a;
         margin-bottom: 4px;
-        line-height: 1.2;
+        line-height: 1.3;
         letter-spacing: -0.5px;
     }
 
     #saunier-form-container .form-subtitle {
-        font-size: 12px;
+        font-size: 11px;
         color: #666;
         font-weight: 400;
     }
 
     #saunier-form-container .step {
         display: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: calc(88vh - 200px);
+        padding-right: 8px;
     }
 
     #saunier-form-container .step.active {
@@ -73,75 +86,107 @@
         animation: fadeInUp 0.4s ease;
     }
 
+    /* Scrollbar personnalisée */
+    #saunier-form-container .step::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #saunier-form-container .step::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    #saunier-form-container .step::-webkit-scrollbar-thumb {
+        background: #FF5722;
+        border-radius: 10px;
+    }
+
+    #saunier-form-container .step::-webkit-scrollbar-thumb:hover {
+        background: #E64A19;
+    }
+
     @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { 
+            opacity: 0; 
+            transform: translateX(20px);
+        }
+        to { 
+            opacity: 1; 
+            transform: translateX(0);
+        }
     }
 
     #saunier-form-container .form-group {
-        margin-bottom: 12px;
+        margin-bottom: 14px;
         position: relative;
     }
 
-    /* --- GRILLES COMPACTES (3 COLONNES SERRÉES) --- */
+    /* --- GRILLES AVEC PLUS D'AÉRATION --- */
     #saunier-form-container .quantities-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 6px; /* Gap réduit */
-        margin-bottom: 16px;
+        gap: 8px;
+        margin-bottom: 14px;
     }
 
     #saunier-form-container .quantity-item {
         background: #fafafa;
         border: 1px solid #e8e8e8;
         border-radius: 8px;
-        padding: 8px 4px; /* Cartes très compactes */
+        padding: 10px 6px;
         text-align: center;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        cursor: pointer;
     }
 
     #saunier-form-container .quantity-item.selected {
         border-color: #FF5722;
         background: #FFF5F2;
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.15);
     }
 
     #saunier-form-container .quantity-item:hover {
         border-color: #FF5722;
         background: #fff;
-        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.1);
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+        transform: translateY(-2px) scale(1.02);
     }
 
-    /* --- ICÔNES RÉDUITES --- */
+    #saunier-form-container .quantity-item:active {
+        transform: translateY(0) scale(0.98);
+    }
+
+    /* --- ICÔNES PLUS GRANDES --- */
     #saunier-form-container .quantity-icon {
         color: #FF5722;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
         display: flex;
         justify-content: center;
     }
 
     #saunier-form-container .quantity-icon svg {
-        width: 28px; /* Icônes réduites */
+        width: 28px;
         height: 28px;
     }
 
     #saunier-form-container .quantity-label {
         font-weight: 600;
         color: #1a1a1a;
-        font-size: 11px; /* Texte réduit */
+        font-size: 11px;
         margin-bottom: 6px;
         min-height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
-        line-height: 1.1;
+        line-height: 1.2;
     }
 
-    /* --- BOUTONS + / - RÉDUITS --- */
+    /* --- BOUTONS + / - PLUS GRANDS --- */
     #saunier-form-container .quantity-controls {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
+        gap: 5px;
     }
 
     #saunier-form-container .qty-btn {
@@ -152,7 +197,7 @@
         border-radius: 6px;
         font-size: 14px;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         color: #FF5722;
         display: flex;
         align-items: center;
@@ -166,10 +211,26 @@
         border-color: #FF5722;
         background: #FF5722;
         color: white;
+        transform: scale(1.15) rotate(3deg);
+        box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3);
+    }
+
+    #saunier-form-container .qty-btn:active {
+        transform: scale(0.95);
+    }
+
+    /* Animation bounce au clic */
+    @keyframes btnBounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+    #saunier-form-container .qty-btn.bounce {
+        animation: btnBounce 0.3s ease;
     }
 
     #saunier-form-container .quantity-controls input {
-        width: 30px;
+        width: 32px;
         text-align: center;
         font-size: 13px;
         font-weight: 700;
@@ -177,19 +238,44 @@
         padding: 0;
         color: #1a1a1a;
         background: transparent;
+        transition: all 0.2s ease;
     }
 
-    /* --- OPTION CARDS (MATÉRIAUX) COMPACTES --- */
+    /* Animation pulse sur le nombre */
+    @keyframes numberPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.3); color: #FF5722; }
+    }
+
+    #saunier-form-container .quantity-controls input.pulse {
+        animation: numberPulse 0.3s ease;
+    }
+
+    /* --- OPTION CARDS AVEC PLUS D'AÉRATION --- */
     #saunier-form-container .options-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
+        gap: 8px;
+    }
+
+    /* GRILLE SPÉCIALE ÉTAPE 0 : 1 colonne sur mobile, 3 sur desktop */
+    #saunier-form-container .needs-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    @media (min-width: 450px) {
+        #saunier-form-container .needs-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
 
     #saunier-form-container .option-card {
         border: 1px solid #e8e8e8;
         border-radius: 8px;
-        padding: 8px 4px;
+        padding: 10px 6px;
         text-align: center;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -197,25 +283,119 @@
         background: #fafafa;
     }
 
+    /* Cartes plus grandes pour l'étape 0 */
+    #saunier-form-container .need-card {
+        border: 2px solid #e8e8e8;
+        border-radius: 12px;
+        padding: 16px 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        position: relative;
+        background: #fafafa;
+    }
+
+    #saunier-form-container .need-card:hover {
+        border-color: #FF5722;
+        background: white;
+        transform: translateY(-4px) scale(1.03) rotate(1deg);
+        box-shadow: 
+            0 2px 8px rgba(0, 0, 0, 0.1),
+            0 8px 20px rgba(255, 87, 34, 0.2);
+    }
+
+    #saunier-form-container .need-card:active {
+        transform: translateY(-2px) scale(1.01);
+    }
+
+    #saunier-form-container .need-card.selected {
+        border-color: #FF5722;
+        background: #FFF5F2;
+        box-shadow: 
+            0 2px 8px rgba(0, 0, 0, 0.08),
+            0 6px 16px rgba(255, 87, 34, 0.25);
+        transform: scale(1.02);
+    }
+
+    /* Animation checkmark pour les cartes sélectionnées */
+    #saunier-form-container .need-card.selected::after,
+    #saunier-form-container .option-card.selected::after {
+        content: '✓';
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 18px;
+        height: 18px;
+        background: #4CAF50;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        animation: checkmarkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes checkmarkPop {
+        0% { transform: scale(0) rotate(0deg); }
+        50% { transform: scale(1.2) rotate(180deg); }
+        100% { transform: scale(1) rotate(360deg); }
+    }
+
+    #saunier-form-container .need-card .icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+        color: #FF5722;
+    }
+
+    #saunier-form-container .need-card .icon svg {
+        width: 38px;
+        height: 38px;
+    }
+
+    #saunier-form-container .need-card .title {
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 4px;
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+    #saunier-form-container .need-card .description {
+        font-size: 10px;
+        color: #666;
+        line-height: 1.4;
+    }
+
     #saunier-form-container .option-card:hover {
         border-color: #FF5722;
         background: white;
-        transform: translateY(-2px);
+        transform: translateY(-2px) scale(1.05) rotate(1deg);
+        box-shadow: 
+            0 2px 6px rgba(0, 0, 0, 0.08),
+            0 6px 16px rgba(255, 87, 34, 0.15);
+    }
+
+    #saunier-form-container .option-card:active {
+        transform: translateY(0) scale(1.02);
     }
 
     #saunier-form-container .option-card.selected {
         border-color: #FF5722;
         background: #FFF5F2;
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
     }
 
     #saunier-form-container .option-card input[type="checkbox"],
-    #saunier-form-container .option-card input[type="radio"] {
+    #saunier-form-container .option-card input[type="radio"],
+    #saunier-form-container .need-card input[type="radio"] {
         position: absolute;
         opacity: 0;
     }
 
     #saunier-form-container .option-card .icon {
-        font-size: 24px;
+        font-size: 22px;
         margin-bottom: 4px;
         color: #FF5722;
     }
@@ -238,10 +418,10 @@
         color: #666;
     }
 
-    /* --- INPUTS & SELECTS CLASSIQUES --- */
+    /* --- INPUTS & SELECTS PLUS AÉRÉS --- */
     #saunier-form-container label {
         display: block;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
         color: #1a1a1a;
         font-weight: 500;
         font-size: 12px;
@@ -253,7 +433,7 @@
     #saunier-form-container select,
     #saunier-form-container textarea {
         width: 100%;
-        padding: 8px 10px;
+        padding: 10px 12px;
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         font-size: 13px;
@@ -266,7 +446,7 @@
     #saunier-form-container textarea:focus {
         outline: none;
         border-color: #FF5722;
-        box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.1);
+        box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
     }
 
     #saunier-form-container textarea {
@@ -274,13 +454,13 @@
         min-height: 60px;
     }
 
-    /* --- BOUTONS NAVIGATION --- */
+    /* --- BOUTONS NAVIGATION PLUS GRANDS --- */
     #saunier-form-container .btn {
         width: 100%;
-        padding: 10px 16px;
+        padding: 12px 18px;
         border: none;
         border-radius: 10px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -297,13 +477,15 @@
 
     #saunier-form-container .btn-primary:hover {
         background: #E64A19;
-        transform: translateY(-1px);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
     }
 
     #saunier-form-container .buttons {
         display: flex;
-        gap: 8px;
+        gap: 10px;
         margin-top: 16px;
+        flex-shrink: 0;
     }
 
     #saunier-form-container .btn-secondary {
@@ -317,9 +499,10 @@
         background: #e0e0e0;
     }
 
-    /* --- BARRE DE PROGRESSION --- */
+    /* --- BARRE DE PROGRESSION PLUS AÉRÉE --- */
     #saunier-form-container .progress-container {
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+        flex-shrink: 0;
     }
 
     #saunier-form-container .progress-bar-wrapper {
@@ -333,10 +516,17 @@
 
     #saunier-form-container .progress-bar-fill {
         height: 100%;
-        background: linear-gradient(90deg, #FF6B35 0%, #FF5722 100%);
+        background: linear-gradient(90deg, #FF6B35 0%, #FF5722 50%, #E64A19 100%);
+        background-size: 200% 100%;
         border-radius: 10px;
-        transition: width 0.4s ease;
+        transition: width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         width: 0%;
+        animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
     }
 
     #saunier-form-container .progress-text {
@@ -346,18 +536,39 @@
         font-weight: 500;
     }
 
+    #saunier-form-container .progress-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #saunier-form-container .time-remaining {
+        font-size: 10px;
+        color: #FF5722;
+        font-weight: 600;
+        padding: 3px 8px;
+        background: #FFF5F2;
+        border-radius: 10px;
+        animation: timePulse 2s infinite;
+    }
+
+    @keyframes timePulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+
     #saunier-form-container .step-indicator {
         text-align: center;
         color: #555;
         font-size: 14px;
         font-weight: 600;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
     /* --- MESSAGES ERREUR/SUCCÈS --- */
     #saunier-form-container .error-message {
         color: #f44336;
-        font-size: 10px;
+        font-size: 9px;
         margin-top: 2px;
         display: none;
     }
@@ -375,19 +586,19 @@
         color: #f44336;
         background: #ffebee;
         border-left: 3px solid #f44336;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 11px;
         font-weight: 500;
-        margin-top: 12px;
+        margin-top: 8px;
     }
 
     #saunier-form-container .success-icon-inline {
         position: absolute;
         right: 10px;
-        top: 32px;
+        top: 28px;
         color: #4CAF50;
-        font-size: 14px;
+        font-size: 13px;
         display: none;
     }
 
@@ -398,8 +609,8 @@
     /* --- FILE UPLOAD --- */
     #saunier-form-container .file-upload-wrapper {
         border: 1px dashed #e0e0e0;
-        border-radius: 8px;
-        padding: 16px;
+        border-radius: 6px;
+        padding: 12px;
         text-align: center;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -411,11 +622,11 @@
     }
 
     #saunier-form-container .uploaded-file {
-        padding: 6px;
+        padding: 5px;
         background: #f8f9fa;
         border-radius: 4px;
-        margin-bottom: 4px;
-        font-size: 10px;
+        margin-bottom: 3px;
+        font-size: 9px;
         display: flex;
         align-items: center;
     }
@@ -431,24 +642,25 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
-        margin-top: 12px;
-        font-size: 10px;
+        gap: 5px;
+        margin-top: 8px;
+        font-size: 9px;
         color: #999;
         flex-wrap: wrap;
+        flex-shrink: 0;
     }
 
     #saunier-form-container .form-footer svg {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
     }
 
     /* Checkbox RGPD */
     #saunier-form-container .checkbox-group {
         display: flex;
         align-items: start;
-        gap: 8px;
-        margin-top: 12px;
+        gap: 6px;
+        margin-top: 8px;
     }
     
     #saunier-form-container .checkbox-group input {
@@ -456,9 +668,48 @@
     }
 
     #saunier-form-container .checkbox-group label {
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 400;
         color: #666;
+    }
+
+    /* Badges de réassurance */
+    #saunier-form-container .reassurance-badges {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 12px;
+        padding: 10px;
+        background: #FFF9F5;
+        border-radius: 8px;
+        border: 1px solid #FFE5E0;
+    }
+
+    #saunier-form-container .reassurance-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    #saunier-form-container .reassurance-icon {
+        color: #4CAF50;
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    #saunier-form-container .reassurance-text {
+        font-size: 10px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    @media (max-width: 450px) {
+        #saunier-form-container .reassurance-badges {
+            flex-direction: column;
+            gap: 6px;
+            padding: 8px;
+        }
     }
 
     /* ============================================ */
@@ -470,16 +721,16 @@
         display: none;
         background: #FFF3E0;
         border: 1px solid #FFB74D;
-        border-radius: 6px;
-        padding: 10px 12px;
-        margin-top: 12px;
+        border-radius: 5px;
+        padding: 8px 10px;
+        margin-top: 8px;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
     }
 
     #saunier-form-container .project-score-icon {
-        font-size: 18px;
+        font-size: 16px;
         flex-shrink: 0;
         opacity: 0.9;
     }
@@ -488,15 +739,15 @@
         color: #E65100;
         text-align: left;
         flex: 1;
-        font-size: 12px;
+        font-size: 11px;
         line-height: 1.4;
     }
 
     #saunier-form-container .project-score-text strong {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         display: inline;
-        margin-right: 4px;
+        margin-right: 3px;
     }
 
     #saunier-form-container .project-score-text br {
@@ -507,36 +758,36 @@
     #saunier-form-container .recap-section {
         background: #FFF9F5;
         border: 1.5px solid #FF5722;
-        border-radius: 8px;
-        padding: 14px;
-        margin-bottom: 16px;
+        border-radius: 6px;
+        padding: 10px;
+        margin-bottom: 10px;
         box-shadow: 0 1px 4px rgba(255, 87, 34, 0.08);
     }
 
     #saunier-form-container .recap-title {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: #FF5722;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 5px;
     }
 
     #saunier-form-container #recapContent {
         background: white;
-        border-radius: 6px;
-        padding: 10px;
-        margin-bottom: 10px;
+        border-radius: 5px;
+        padding: 8px;
+        margin-bottom: 8px;
     }
 
     #saunier-form-container .recap-item {
-        padding: 6px 10px;
-        margin-bottom: 4px;
+        padding: 5px 8px;
+        margin-bottom: 3px;
         background: #fafafa;
         border-left: 2px solid #FF5722;
         border-radius: 3px;
-        font-size: 12px;
+        font-size: 11px;
         color: #333;
         transition: background 0.2s ease;
     }
@@ -553,13 +804,13 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
-        padding: 6px 12px;
+        gap: 3px;
+        padding: 5px 10px;
         background: white;
         color: #FF5722;
         border: 1px solid #FF5722;
-        border-radius: 5px;
-        font-size: 11px;
+        border-radius: 4px;
+        font-size: 10px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -575,16 +826,16 @@
     /* 3️⃣ PAGE DE CONFIRMATION - Design sobre et professionnel */
     #saunier-form-container .success-message {
         text-align: center;
-        padding: 40px 20px;
+        padding: 30px 16px;
         background: #FFF9F5;
-        border-radius: 12px;
+        border-radius: 10px;
         border: 2px solid #4CAF50;
     }
 
     #saunier-form-container .success-icon {
-        width: 70px;
-        height: 70px;
-        margin: 0 auto 20px;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 16px;
         background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
         border-radius: 50%;
         display: flex;
@@ -600,8 +851,8 @@
     }
 
     #saunier-form-container .success-icon svg {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         stroke: white;
         stroke-width: 3;
         fill: none;
@@ -614,17 +865,17 @@
     }
 
     #saunier-form-container .success-message h2 {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 700;
         color: #1a1a1a;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     #saunier-form-container .success-message p {
-        font-size: 14px;
+        font-size: 13px;
         color: #555;
         line-height: 1.6;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     #saunier-form-container .success-message p strong {
@@ -636,53 +887,58 @@
     #saunier-form-container .success-message .success-badge {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         background: white;
-        padding: 10px 18px;
-        border-radius: 20px;
-        margin-top: 16px;
+        padding: 8px 16px;
+        border-radius: 18px;
+        margin-top: 12px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         border: 1px solid #e8e8e8;
     }
 
     #saunier-form-container .success-message .success-badge::before {
         content: '📞';
-        font-size: 18px;
+        font-size: 16px;
     }
 
     #saunier-form-container .success-message .success-badge-text {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         color: #333;
     }
 
-    /* MOBILE : 2 COLONNES */
+    /* MOBILE : 2 COLONNES PLUS AÉRÉES */
     @media (max-width: 450px) {
         #saunier-form-container .quantities-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
+            gap: 8px;
         }
 
         #saunier-form-container .options-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
+            gap: 8px;
         }
 
         #saunier-form-container .form-card {
-            padding: 16px;
+            padding: 20px;
             border-radius: 12px;
             max-width: 100%;
+            max-height: 92vh;
+        }
+
+        #saunier-form-container .step {
+            max-height: calc(92vh - 180px);
         }
         
         #saunier-form-container .buttons {
             position: sticky;
             bottom: 0;
             background: white;
-            padding: 10px 0;
-            margin-left: -16px;
-            margin-right: -16px;
-            padding-left: 16px;
-            padding-right: 16px;
+            padding: 12px 0;
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-left: 20px;
+            padding-right: 20px;
             box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
             z-index: 10;
             border-top: 1px solid #f0f0f0;
@@ -699,7 +955,11 @@
         }
 
         #saunier-form-container .success-message h2 {
-            font-size: 20px;
+            font-size: 19px;
+        }
+
+        #saunier-form-container .success-message p {
+            font-size: 13px;
         }
     }
 </style>
@@ -717,13 +977,71 @@
                 <div class="progress-bar-wrapper">
                     <div class="progress-bar-fill" id="progressBarFill"></div>
                 </div>
-                <div class="progress-text" id="progressText">Étape 1 sur 6 • 17% complété</div>
+                <div class="progress-info">
+                    <div class="progress-text" id="progressText">Étape 1 sur 7 • 14% complété</div>
+                    <div class="time-remaining" id="timeRemaining">⏱️ ~2 min</div>
+                </div>
             </div>
 
             <form id="devisForm">
                 <input type="text" name="_honeypot" style="display:none !important" tabindex="-1" autocomplete="off">
 
-                <div class="step active" data-step="1">
+                <!-- ÉTAPE 0 : TYPE DE BESOIN -->
+                <div class="step active" data-step="0">
+                    <div class="step-indicator">🎯 Quel est votre besoin ?</div>
+                    
+                    <div class="needs-grid">
+                        <label class="need-card" data-need-type="installation">
+                            <input type="radio" name="typeProjet" value="installation" required>
+                            <div class="icon">
+                                <svg viewBox="0 0 64 64" fill="none">
+                                    <rect x="12" y="16" width="40" height="36" rx="3" fill="#FFE5E0" stroke="currentColor" stroke-width="2.5"/>
+                                    <rect x="20" y="24" width="10" height="12" rx="1" fill="white" stroke="currentColor" stroke-width="2"/>
+                                    <rect x="34" y="24" width="10" height="12" rx="1" fill="white" stroke="currentColor" stroke-width="2"/>
+                                    <rect x="20" y="40" width="24" height="2" fill="currentColor"/>
+                                    <path d="M32 8L16 16h32L32 8z" fill="#FF5722"/>
+                                </svg>
+                            </div>
+                            <div class="title">Installation / Rénovation</div>
+                            <div class="description">Projet complet de menuiseries</div>
+                        </label>
+
+                        <label class="need-card" data-need-type="depannage">
+                            <input type="radio" name="typeProjet" value="depannage" required>
+                            <div class="icon">
+                                <svg viewBox="0 0 64 64" fill="none">
+                                    <circle cx="32" cy="32" r="20" fill="#FFE5E0" stroke="currentColor" stroke-width="2.5"/>
+                                    <path d="M32 20v16l8 8" stroke="#FF5722" stroke-width="3" stroke-linecap="round"/>
+                                    <path d="M28 18l-4-4M36 18l4-4M18 28l-4-4M46 28l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="title">Dépannage / Réparation</div>
+                            <div class="description">Intervention rapide urgente</div>
+                        </label>
+
+                        <label class="need-card" data-need-type="autre">
+                            <input type="radio" name="typeProjet" value="autre" required>
+                            <div class="icon">
+                                <svg viewBox="0 0 64 64" fill="none">
+                                    <circle cx="32" cy="32" r="20" fill="#FFE5E0" stroke="currentColor" stroke-width="2.5"/>
+                                    <path d="M22 28c2-4 8-4 10 0M42 28c-2-4-8-4-10 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                                    <ellipse cx="26" cy="26" rx="2" ry="3" fill="currentColor"/>
+                                    <ellipse cx="38" cy="26" rx="2" ry="3" fill="currentColor"/>
+                                    <path d="M24 40c2 4 14 4 16 0" stroke="#FF5722" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="title">Autre demande</div>
+                            <div class="description">Conseil ou question spécifique</div>
+                        </label>
+                    </div>
+
+                    <div class="step-error-message" id="step0Error" style="display: none;">
+                        ⚠️ Veuillez sélectionner le type de votre besoin
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 1 : MENUISERIES (seulement si installation) -->
+                <div class="step" data-step="1">
                     <div class="step-indicator">🪟 Vos menuiseries</div>
                     
                     <div class="quantities-grid">
@@ -888,6 +1206,7 @@
                     </div>
                 </div>
 
+                <!-- ÉTAPE 2 : MATÉRIAUX (seulement si installation) -->
                 <div class="step" data-step="2">
                     <div class="step-indicator">🔧 Matériau(x) souhaité(s)</div>
                     
@@ -965,11 +1284,12 @@
                     </div>
                 </div>
 
+                <!-- ÉTAPE 3 : TYPE DE BIEN (seulement si installation) -->
                 <div class="step" data-step="3">
                     <div class="step-indicator">🏠 Type de bien</div>
                     
                     <div class="form-group">
-                        <select name="typeBien" required id="typeBienSelect">
+                        <select name="typeBien" id="typeBienSelect">
                             <option value="">Sélectionnez votre type de bien</option>
                             <option value="maison">Maison individuelle</option>
                             <option value="appartement">Appartement</option>
@@ -980,11 +1300,12 @@
                     </div>
                 </div>
 
+                <!-- ÉTAPE 4 : DÉLAI (pour installation uniquement) -->
                 <div class="step" data-step="4">
                     <div class="step-indicator">📅 Délai souhaité</div>
                     
                     <div class="form-group">
-                        <select name="delai" required id="delaiSelect">
+                        <select name="delai" id="delaiSelect">
                             <option value="">Dans quel délai souhaitez-vous réaliser ?</option>
                             <option value="urgent">Le plus tôt possible (urgent)</option>
                             <option value="1-3mois">Dans 1 à 3 mois</option>
@@ -1003,7 +1324,39 @@
                     </div>
                 </div>
 
+                <!-- ÉTAPE 5 : DESCRIPTION (pour dépannage/autre) -->
                 <div class="step" data-step="5">
+                    <div class="step-indicator">📝 Décrivez votre besoin</div>
+                    
+                    <div class="form-group">
+                        <label>Description du problème / de votre demande *</label>
+                        <textarea name="descriptionProbleme" id="descriptionProbleme" placeholder="Décrivez votre situation en quelques mots..." required></textarea>
+                        <span class="error-message">Veuillez décrire votre besoin</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Urgence de votre demande</label>
+                        <select name="urgenceDepannage">
+                            <option value="">Sélectionnez le niveau d'urgence</option>
+                            <option value="immediat">Très urgent (rappel prioritaire)</option>
+                            <option value="urgent">Urgent (rappel rapide)</option>
+                            <option value="normal">Normal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Photos du problème (recommandé)</label>
+                        <div class="file-upload-wrapper" onclick="document.getElementById('fileInputDepannage').click()">
+                            <input type="file" id="fileInputDepannage" accept="image/*" multiple>
+                            <div class="file-upload-icon">📸</div>
+                            <div class="file-upload-text">Cliquez pour ajouter des photos<br><small>(JPG, PNG - Max 5 photos)</small></div>
+                        </div>
+                        <div class="uploaded-files" id="uploadedFilesDepannage"></div>
+                    </div>
+                </div>
+
+                <!-- ÉTAPE 6 : DÉTAILS DU PROJET (pour installation uniquement) -->
+                <div class="step" data-step="6">
                     <div class="step-indicator">📍 Détails du projet</div>
                     
                     <div class="form-group">
@@ -1040,13 +1393,33 @@
                     </div>
                 </div>
 
-                <div class="step" data-step="6">
+                <!-- ÉTAPE 7 : COORDONNÉES (finale) -->
+                <div class="step" data-step="7">
                     <div class="step-indicator">🎉 Dernière étape !</div>
                     
-                    <div class="recap-section" id="recapSection">
+                    <div class="recap-section" id="recapSection" style="display: none;">
                         <div class="recap-title">Récapitulatif de votre demande</div>
                         <div id="recapContent"></div>
                         <span class="recap-edit" onclick="goToStep(1)">✏️ Modifier</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Code postal *</label>
+                        <input type="text" name="codePostalFinal" id="codePostalFinal" placeholder="Ex: 74000" required pattern="[0-9]{5}" maxlength="5">
+                        <span class="error-message">Le code postal doit contenir 5 chiffres</span>
+                        <span class="success-icon-inline">✓</span>
+                    </div>
+
+                    <div class="form-group" id="villeGroup" style="display: none;">
+                        <label>Ville</label>
+                        <input type="text" name="ville" id="ville" readonly style="background: #f5f5f5; cursor: default;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Téléphone *</label>
+                        <input type="tel" name="telephone" id="telephone" placeholder="06 00 00 00 00" required pattern="[0-9]{10}" maxlength="10">
+                        <span class="error-message">Le téléphone doit contenir 10 chiffres</span>
+                        <span class="success-icon-inline">✓</span>
                     </div>
 
                     <div class="form-group">
@@ -1071,13 +1444,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Téléphone *</label>
-                        <input type="tel" name="telephone" id="telephone" placeholder="06 00 00 00 00" required pattern="[0-9]{10}" maxlength="10">
-                        <span class="error-message">Le téléphone doit contenir 10 chiffres</span>
-                        <span class="success-icon-inline">✓</span>
-                    </div>
-
-                    <div class="form-group">
                         <label>Créneau de rappel préféré (optionnel)</label>
                         <select name="creneauRappel">
                             <option value="">Indifférent</option>
@@ -1094,19 +1460,35 @@
                     <div class="step-error-message" id="rgpdError" style="display: none; margin-top: 8px;">
                         ⚠️ Vous devez accepter les CGU et la politique de confidentialité pour continuer
                     </div>
+
+                    <div class="reassurance-badges">
+                        <div class="reassurance-item">
+                            <span class="reassurance-icon">✓</span>
+                            <span class="reassurance-text">Gratuit</span>
+                        </div>
+                        <div class="reassurance-item">
+                            <span class="reassurance-icon">✓</span>
+                            <span class="reassurance-text">Sans engagement</span>
+                        </div>
+                        <div class="reassurance-item">
+                            <span class="reassurance-icon">✓</span>
+                            <span class="reassurance-text">Réponse sous 24h</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="step" data-step="7">
+                <!-- ÉTAPE 8 : SUCCÈS -->
+                <div class="step" data-step="8">
                     <div class="success-message">
                         <div class="success-icon">
                             <svg fill="none" viewBox="0 0 24 24">
                                 <polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <h2>🎉 Demande envoyée !</h2>
-                        <p>Merci pour votre confiance. Nous vous recontactons <strong>dans les meilleurs délais</strong> pour affiner votre projet et vous proposer le meilleur devis.</p>
+                        <h2 id="successTitle">🎉 Demande envoyée !</h2>
+                        <p id="successMessage">Merci pour votre confiance. Nous vous recontactons <strong>dans les meilleurs délais</strong> pour affiner votre projet et vous proposer le meilleur devis.</p>
                         <div class="success-badge">
-                            <span class="success-badge-text">Un conseiller commercial vous contactera prochainement</span>
+                            <span class="success-badge-text" id="successBadge">Un conseiller commercial vous contactera prochainement</span>
                         </div>
                     </div>
                 </div>
@@ -1151,17 +1533,28 @@
             const navigationButtons = document.getElementById('navigationButtons');
             const progressBarFill = document.getElementById('progressBarFill');
             const progressText = document.getElementById('progressText');
-            let currentStep = 1;
-            const totalSteps = 6;
+            let currentStep = 0;
+            let projectType = ''; // 'installation', 'depannage', ou 'autre'
             let startTime = Date.now();
             let uploadedFiles = [];
             let formStarted = false;
+
+            // Définition du parcours des étapes selon le type de projet
+            const stepFlow = {
+                installation: [0, 1, 2, 3, 4, 6, 7, 8], // Étape 0 -> Menuiseries -> Matériaux -> Type bien -> Délai -> Détails -> Coordonnées -> Succès
+                depannage: [0, 5, 7, 8], // Étape 0 -> Description -> Coordonnées -> Succès
+                autre: [0, 5, 7, 8] // Étape 0 -> Description -> Coordonnées -> Succès
+            };
+
+            let activeStepFlow = []; // Sera défini après sélection du type de projet
+            let currentFlowIndex = 0;
 
             // LocalStorage
             function saveProgress() {
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData);
                 data.currentStep = currentStep;
+                data.projectType = projectType;
                 data.uploadedFiles = uploadedFiles;
                 localStorage.setItem('saunierFormData', JSON.stringify(data));
             }
@@ -1171,7 +1564,7 @@
                 if (saved) {
                     const data = JSON.parse(saved);
                     Object.keys(data).forEach(key => {
-                        if (key !== 'currentStep' && key !== 'uploadedFiles') {
+                        if (key !== 'currentStep' && key !== 'projectType' && key !== 'uploadedFiles') {
                             const input = form.querySelector(`[name="${key}"]`);
                             if (input) {
                                 if (input.type === 'checkbox') {
@@ -1188,6 +1581,10 @@
                     if (data.uploadedFiles) {
                         uploadedFiles = data.uploadedFiles;
                         displayUploadedFiles();
+                    }
+                    if (data.projectType) {
+                        projectType = data.projectType;
+                        activeStepFlow = stepFlow[projectType];
                     }
                 }
             }
@@ -1209,7 +1606,29 @@
             
             window.addEventListener('load', () => {
                 sendHeightToParent();
-                loadProgress();
+                
+                // Amélioration 8 : Préremplissage intelligent si retour
+                const saved = localStorage.getItem('saunierFormData');
+                if (saved) {
+                    const lastVisit = localStorage.getItem('saunierLastVisit');
+                    const now = Date.now();
+                    const daysSinceLastVisit = lastVisit ? (now - parseInt(lastVisit)) / (1000 * 60 * 60 * 24) : 999;
+                    
+                    // Si dernière visite il y a moins de 7 jours
+                    if (daysSinceLastVisit < 7) {
+                        const shouldRestore = confirm('👋 On dirait que vous étiez déjà venu !\n\nVoulez-vous reprendre là où vous en étiez ?');
+                        if (shouldRestore) {
+                            loadProgress();
+                        } else {
+                            localStorage.removeItem('saunierFormData');
+                        }
+                    } else {
+                        // Trop vieux, on supprime
+                        localStorage.removeItem('saunierFormData');
+                    }
+                }
+                
+                localStorage.setItem('saunierLastVisit', Date.now().toString());
             });
 
             // Validation temps réel
@@ -1271,15 +1690,65 @@
 
             // Auto-format code postal
             const cpInput = document.getElementById('codePostal');
+            const cpFinalInput = document.getElementById('codePostalFinal');
+            
+            // Amélioration 3 : Auto-complétion de la ville depuis le code postal
+            async function fetchCityFromPostalCode(postalCode) {
+                if (postalCode.length !== 5) return;
+                
+                try {
+                    const response = await fetch(`https://api-adresse.data.gouv.fr/search/?q=${postalCode}&type=municipality&limit=1`);
+                    
+                    if (!response.ok) {
+                        // API non disponible, on ignore silencieusement
+                        return;
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.features && data.features.length > 0) {
+                        const city = data.features[0].properties.city;
+                        const villeInput = document.getElementById('ville');
+                        const villeGroup = document.getElementById('villeGroup');
+                        
+                        if (villeInput && villeGroup) {
+                            villeInput.value = city;
+                            villeGroup.style.display = 'block';
+                            saveProgress();
+                        }
+                    }
+                } catch (error) {
+                    // Erreur réseau ou CORS - on ignore silencieusement
+                    // L'utilisateur pourra quand même soumettre le formulaire sans la ville
+                    console.log('Info: Auto-complétion ville non disponible');
+                }
+            }
+            
             if (cpInput) {
                 cpInput.addEventListener('input', function(e) {
                     let value = this.value.replace(/\D/g, '');
                     if (value.length > 5) value = value.substr(0, 5);
                     this.value = value;
+                    
+                    if (value.length === 5) {
+                        fetchCityFromPostalCode(value);
+                    }
+                });
+            }
+            
+            if (cpFinalInput) {
+                cpFinalInput.addEventListener('input', function(e) {
+                    let value = this.value.replace(/\D/g, '');
+                    if (value.length > 5) value = value.substr(0, 5);
+                    this.value = value;
+                    
+                    if (value.length === 5) {
+                        fetchCityFromPostalCode(value);
+                    }
                 });
             }
 
-            // Gestion des cartes d'options (CHECKBOXES)
+            // Gestion des cartes d'options (CHECKBOXES pour matériaux)
             document.querySelectorAll('#saunier-form-container .option-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const input = this.querySelector('input');
@@ -1290,6 +1759,29 @@
                     } else {
                         this.classList.remove('selected');
                     }
+                    
+                    saveProgress();
+                });
+            });
+
+            // Gestion des cartes de besoin (RADIO pour type de projet)
+            document.querySelectorAll('#saunier-form-container .need-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const input = this.querySelector('input[type="radio"]');
+                    
+                    // Retirer la sélection des autres cartes
+                    document.querySelectorAll('#saunier-form-container .need-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Sélectionner cette carte
+                    this.classList.add('selected');
+                    input.checked = true;
+                    
+                    // Définir le type de projet et le flux d'étapes
+                    projectType = input.value;
+                    activeStepFlow = stepFlow[projectType];
+                    currentFlowIndex = 0;
                     
                     saveProgress();
                 });
@@ -1308,6 +1800,10 @@
                     const input = document.querySelector(`#saunier-form-container input[name="qty_${target}"]`);
                     const quantityItem = input.closest('.quantity-item');
                     const currentValue = parseInt(input.value);
+                    
+                    // Amélioration 1 : Animation bounce sur le bouton
+                    this.classList.add('bounce');
+                    setTimeout(() => this.classList.remove('bounce'), 300);
                     
                     if (this.classList.contains('plus')) {
                         if (currentValue < 99) {
@@ -1333,26 +1829,40 @@
                 });
             });
 
-            // Upload fichiers
-           const fileInput = document.getElementById('fileInput');
+            // Upload fichiers (installation)
+            const fileInput = document.getElementById('fileInput');
             
-            fileInput.addEventListener('change', function(e) {
-                const files = Array.from(e.target.files);
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    handleFileUpload(e.target.files, 'uploadedFiles');
+                    this.value = '';
+                });
+            }
+
+            // Upload fichiers (dépannage)
+            const fileInputDepannage = document.getElementById('fileInputDepannage');
+            
+            if (fileInputDepannage) {
+                fileInputDepannage.addEventListener('change', function(e) {
+                    handleFileUpload(e.target.files, 'uploadedFilesDepannage');
+                    this.value = '';
+                });
+            }
+
+            function handleFileUpload(files, containerId) {
+                const fileArray = Array.from(files);
                 
-                // Sécurité 1 : Pas plus de 5 photos au total
-                if (uploadedFiles.length + files.length > 5) {
+                if (uploadedFiles.length + fileArray.length > 5) {
                     alert('Maximum 5 photos autorisées.');
                     return;
                 }
 
-                files.forEach(file => {
-                    // Sécurité 2 : Pas de fichier de plus de 5 Mo
+                fileArray.forEach(file => {
                     if (file.size > 5 * 1024 * 1024) {
                         alert(`La photo "${file.name}" est trop lourde (max 5MB).`);
                         return;
                     }
 
-                    // Transformation de l'image en texte pour Google Script
                     const reader = new FileReader();
                     
                     reader.onload = function(e) {
@@ -1360,22 +1870,21 @@
                             name: file.name,
                             type: file.type,
                             size: (file.size / 1024).toFixed(0) + ' KB',
-                            // C'est ICI la donnée réelle de l'image qui partira vers Google :
-                            data: e.target.result.split(',')[1] 
+                            data: e.target.result.split(',')[1]
                         });
                         
-                        displayUploadedFiles();
+                        displayUploadedFiles(containerId);
                         saveProgress();
                     };
                     
-                    // Lancement de la lecture du fichier
                     reader.readAsDataURL(file);
                 });
+            }
+
+            function displayUploadedFiles(containerId = 'uploadedFiles') {
+                const container = document.getElementById(containerId);
+                if (!container) return;
                 
-                this.value = ''; // Reset pour pouvoir ré-ajouter le même fichier si besoin
-            });
-            function displayUploadedFiles() {
-                const container = document.getElementById('uploadedFiles');
                 container.innerHTML = uploadedFiles.map((file, index) => `
                     <div class="uploaded-file">
                         <span>📷 ${file.name} (${file.size})</span>
@@ -1386,80 +1895,114 @@
 
             window.removeFile = function(index) {
                 uploadedFiles.splice(index, 1);
-                displayUploadedFiles();
+                displayUploadedFiles('uploadedFiles');
+                displayUploadedFiles('uploadedFilesDepannage');
                 saveProgress();
             };
 
             // Score de projet
             const delaiSelect = document.getElementById('delaiSelect');
             const projectScore = document.getElementById('projectScore');
-            delaiSelect.addEventListener('change', function() {
-                if (this.value === 'urgent') {
-                    projectScore.style.display = 'flex';
-                } else {
-                    projectScore.style.display = 'none';
-                }
-                saveProgress();
-            });
+            if (delaiSelect) {
+                delaiSelect.addEventListener('change', function() {
+                    if (this.value === 'urgent') {
+                        projectScore.style.display = 'flex';
+                    } else {
+                        projectScore.style.display = 'none';
+                    }
+                    saveProgress();
+                });
+            }
 
             function updateProgress() {
+                if (!activeStepFlow || activeStepFlow.length === 0) return;
+                
                 // Ne pas afficher la progression sur l'étape de succès
-                if (currentStep > totalSteps) {
+                if (currentStep === 8) {
                     return;
                 }
-                const percentage = Math.round((currentStep / totalSteps) * 100);
+                
+                const totalStepsInFlow = activeStepFlow.length - 1; // -1 pour exclure l'étape de succès
+                const percentage = Math.round((currentFlowIndex / totalStepsInFlow) * 100);
                 progressBarFill.style.width = percentage + '%';
-                progressText.textContent = `Étape ${currentStep} sur ${totalSteps} • ${percentage}% complété`;
+                progressText.textContent = `Étape ${currentFlowIndex + 1} sur ${totalStepsInFlow} • ${percentage}% complété`;
+                
+                // Amélioration 4 : Calcul du temps restant
+                const timeRemaining = document.getElementById('timeRemaining');
+                if (timeRemaining) {
+                    const remainingSteps = totalStepsInFlow - currentFlowIndex;
+                    let estimatedTime;
+                    
+                    if (remainingSteps <= 1) {
+                        estimatedTime = '~30s';
+                    } else if (remainingSteps <= 2) {
+                        estimatedTime = '~1 min';
+                    } else if (remainingSteps <= 4) {
+                        estimatedTime = '~2 min';
+                    } else {
+                        estimatedTime = '~3 min';
+                    }
+                    
+                    timeRemaining.textContent = `⏱️ ${estimatedTime}`;
+                }
             }
 
             function generateRecap() {
                 const recapContent = document.getElementById('recapContent');
+                const recapSection = document.getElementById('recapSection');
                 let html = '';
 
-                // Menuiseries
-                const menuiseries = [];
-                document.querySelectorAll('#saunier-form-container input[name^="qty_"]').forEach(input => {
-                    const qty = parseInt(input.value);
-                    if (qty > 0) {
-                        const label = input.closest('.quantity-item').querySelector('.quantity-label').textContent;
-                        menuiseries.push(`${qty} ${label}${qty > 1 ? 's' : ''}`);
+                // Type de projet
+                if (projectType === 'installation') {
+                    html += `<div class="recap-item">Type : Installation / Rénovation</div>`;
+                    
+                    // Menuiseries
+                    const menuiseries = [];
+                    document.querySelectorAll('#saunier-form-container input[name^="qty_"]').forEach(input => {
+                        const qty = parseInt(input.value);
+                        if (qty > 0) {
+                            const label = input.closest('.quantity-item').querySelector('.quantity-label').textContent;
+                            menuiseries.push(`${qty} ${label}${qty > 1 ? 's' : ''}`);
+                        }
+                    });
+                    if (menuiseries.length > 0) {
+                        html += `<div class="recap-item">${menuiseries.join(', ')}</div>`;
                     }
-                });
-                if (menuiseries.length > 0) {
-                    html += `<div class="recap-item">${menuiseries.join(', ')}</div>`;
-                }
 
-                const autreProjet = form.querySelector('[name="autreProjet"]').value;
-                if (autreProjet) {
-                    html += `<div class="recap-item">Autre : ${autreProjet}</div>`;
-                }
+                    const autreProjet = form.querySelector('[name="autreProjet"]')?.value;
+                    if (autreProjet) {
+                        html += `<div class="recap-item">Autre : ${autreProjet}</div>`;
+                    }
 
-                // Matériaux (checkboxes)
-                const materiaux = [];
-                document.querySelectorAll('#saunier-form-container input[name^="materiau_"]:checked').forEach(input => {
-                    const label = input.closest('.option-card').querySelector('.title').textContent;
-                    materiaux.push(label);
-                });
-                if (materiaux.length > 0) {
-                    html += `<div class="recap-item">Matériau(x) : ${materiaux.join(', ')}</div>`;
-                }
+                    // Matériaux
+                    const materiaux = [];
+                    document.querySelectorAll('#saunier-form-container input[name^="materiau_"]:checked').forEach(input => {
+                        const label = input.closest('.option-card').querySelector('.title').textContent;
+                        materiaux.push(label);
+                    });
+                    if (materiaux.length > 0) {
+                        html += `<div class="recap-item">Matériau(x) : ${materiaux.join(', ')}</div>`;
+                    }
 
-                // Type de bien
-                const typeBien = form.querySelector('[name="typeBien"]');
-                if (typeBien.value) {
-                    html += `<div class="recap-item">Type : ${typeBien.options[typeBien.selectedIndex].text}</div>`;
-                }
+                    // Type de bien
+                    const typeBien = form.querySelector('[name="typeBien"]');
+                    if (typeBien && typeBien.value) {
+                        html += `<div class="recap-item">Type : ${typeBien.options[typeBien.selectedIndex].text}</div>`;
+                    }
 
-                // Délai
-                const delai = form.querySelector('[name="delai"]');
-                if (delai.value) {
-                    html += `<div class="recap-item">Délai : ${delai.options[delai.selectedIndex].text}</div>`;
-                }
-
-                // Code postal
-                const cp = form.querySelector('[name="codePostal"]').value;
-                if (cp) {
-                    html += `<div class="recap-item">Code postal : ${cp}</div>`;
+                    // Délai
+                    const delai = form.querySelector('[name="delai"]');
+                    if (delai && delai.value) {
+                        html += `<div class="recap-item">Délai : ${delai.options[delai.selectedIndex].text}</div>`;
+                    }
+                } else {
+                    html += `<div class="recap-item">Type : ${projectType === 'depannage' ? 'Dépannage / Réparation' : 'Autre demande'}</div>`;
+                    
+                    const description = form.querySelector('[name="descriptionProbleme"]')?.value;
+                    if (description) {
+                        const shortDesc = description.length > 60 ? description.substring(0, 60) + '...' : description;
+                        html += `<div class="recap-item">Description : ${shortDesc}</div>`;
+                    }
                 }
 
                 // Photos
@@ -1467,15 +2010,32 @@
                     html += `<div class="recap-item">${uploadedFiles.length} photo${uploadedFiles.length > 1 ? 's' : ''} ajoutée${uploadedFiles.length > 1 ? 's' : ''}</div>`;
                 }
 
-                recapContent.innerHTML = html;
+                if (html) {
+                    recapContent.innerHTML = html;
+                    recapSection.style.display = 'block';
+                } else {
+                    recapSection.style.display = 'none';
+                }
             }
 
             function validateStep(step) {
-                const currentStepElement = steps[step - 1];
+                const currentStepElement = steps[step];
                 
                 // Cacher tous les messages d'erreur d'étape
                 document.querySelectorAll('.step-error-message').forEach(msg => msg.style.display = 'none');
                 
+                // Validation étape 0 (choix du type de projet)
+                if (step === 0) {
+                    const typeProjet = form.querySelector('input[name="typeProjet"]:checked');
+                    if (!typeProjet) {
+                        document.getElementById('step0Error').style.display = 'block';
+                        setTimeout(() => sendHeightToParent(), 100);
+                        return false;
+                    }
+                    return true;
+                }
+                
+                // Validation étape 1 (menuiseries)
                 if (step === 1) {
                     const quantities = currentStepElement.querySelectorAll('input[type="number"]');
                     let total = 0;
@@ -1488,6 +2048,7 @@
                     return true;
                 }
 
+                // Validation étape 2 (matériaux)
                 if (step === 2) {
                     const checked = currentStepElement.querySelectorAll('input[type="checkbox"]:checked');
                     if (checked.length === 0) {
@@ -1498,6 +2059,7 @@
                     return true;
                 }
 
+                // Validation étape 3 (type de bien)
                 if (step === 3) {
                     const select = document.getElementById('typeBienSelect');
                     if (!select.value) {
@@ -1508,6 +2070,7 @@
                     return true;
                 }
 
+                // Validation étape 4 (délai)
                 if (step === 4) {
                     const select = document.getElementById('delaiSelect');
                     if (!select.value) {
@@ -1518,7 +2081,18 @@
                     return true;
                 }
                 
-                if (step === 6) {
+                // Validation étape 5 (description pour dépannage/autre)
+                if (step === 5) {
+                    const descriptionField = document.getElementById('descriptionProbleme');
+                    if (!validateField(descriptionField)) {
+                        setTimeout(() => sendHeightToParent(), 100);
+                        return false;
+                    }
+                    return true;
+                }
+                
+                // Validation étape 7 (coordonnées)
+                if (step === 7) {
                     // Vérifier la checkbox RGPD
                     const rgpdCheckbox = document.getElementById('rgpd');
                     if (!rgpdCheckbox.checked) {
@@ -1530,7 +2104,7 @@
                 }
 
                 // Validation des champs required
-                const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+                const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
                 let hasError = false;
                 
                 for (let input of inputs) {
@@ -1556,29 +2130,30 @@
             function showStep(step) {
                 steps.forEach((s, index) => {
                     s.classList.remove('active');
-                    if (index === step - 1) s.classList.add('active');
+                    if (index === step) s.classList.add('active');
                 });
 
                 // Cacher tous les messages d'erreur quand on change d'étape
                 document.querySelectorAll('.step-error-message').forEach(msg => msg.style.display = 'none');
                 document.querySelectorAll('.form-group').forEach(group => group.classList.remove('error'));
 
-                prevBtn.style.display = step === 1 ? 'none' : 'block';
+                prevBtn.style.display = currentFlowIndex === 0 ? 'none' : 'block';
                 
                 // Cacher la barre de progression sur l'étape de succès
                 const progressContainer = document.querySelector('.progress-container');
-                if (step === totalSteps + 1) {
+                if (step === 8) {
                     progressContainer.style.display = 'none';
                     navigationButtons.style.display = 'none';
                 } else {
                     progressContainer.style.display = 'block';
                 }
                 
-                if (step === totalSteps) {
+                // Adapter le texte du bouton
+                if (step === 7) {
                     nextBtn.textContent = '🎁 Recevoir mon devis gratuit';
                     nextBtn.style.flex = '1';
                     generateRecap();
-                } else if (step === totalSteps + 1) {
+                } else if (step === 8) {
                     navigationButtons.style.display = 'none';
                 } else {
                     nextBtn.textContent = 'Continuer';
@@ -1589,30 +2164,52 @@
                 setTimeout(sendHeightToParent, 100);
             }
 
-            window.goToStep = function(step) {
-                currentStep = step;
+            window.goToStep = function(flowIndex) {
+                if (!activeStepFlow || flowIndex < 0 || flowIndex >= activeStepFlow.length) return;
+                currentFlowIndex = flowIndex;
+                currentStep = activeStepFlow[flowIndex];
                 showStep(currentStep);
             };
 
             nextBtn.addEventListener('click', function() {
-                if (currentStep <= totalSteps) {
+                // Après l'étape 0, définir le flux et passer à la première étape du flux
+                if (currentStep === 0) {
                     if (!validateStep(currentStep)) {
                         return;
                     }
-
-                    if (currentStep === totalSteps) {
-                        submitForm();
-                    } else {
-                        currentStep++;
-                        showStep(currentStep);
-                        saveProgress();
-                    }
+                    
+                    // Le type de projet a déjà été défini lors du clic sur la carte
+                    currentFlowIndex = 1; // Passer à la deuxième étape du flux
+                    currentStep = activeStepFlow[currentFlowIndex];
+                    showStep(currentStep);
+                    saveProgress();
+                    return;
+                }
+                
+                // Valider l'étape actuelle
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+                
+                // Si on est à l'avant-dernière étape (coordonnées), soumettre le formulaire
+                if (currentStep === 7) {
+                    submitForm();
+                    return;
+                }
+                
+                // Passer à l'étape suivante dans le flux
+                currentFlowIndex++;
+                if (currentFlowIndex < activeStepFlow.length) {
+                    currentStep = activeStepFlow[currentFlowIndex];
+                    showStep(currentStep);
+                    saveProgress();
                 }
             });
 
             prevBtn.addEventListener('click', function() {
-                if (currentStep > 1) {
-                    currentStep--;
+                if (currentFlowIndex > 0) {
+                    currentFlowIndex--;
+                    currentStep = activeStepFlow[currentFlowIndex];
                     showStep(currentStep);
                     saveProgress();
                 }
@@ -1621,38 +2218,44 @@
             function submitForm() {
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData);
+                data.typeProjet = projectType;
                 data.uploadedFiles = uploadedFiles;
                 data.completionTime = Math.round((Date.now() - startTime) / 1000);
                 
-                // Collecter les matériaux sélectionnés
-                const materiaux = [];
-                document.querySelectorAll('input[name^="materiau_"]:checked').forEach(input => {
-                    materiaux.push(input.value);
-                });
-                data.materiaux = materiaux.join(', ');
+                // Collecter les matériaux sélectionnés (seulement pour installation)
+                if (projectType === 'installation') {
+                    const materiaux = [];
+                    document.querySelectorAll('input[name^="materiau_"]:checked').forEach(input => {
+                        materiaux.push(input.value);
+                    });
+                    data.materiaux = materiaux.join(', ');
+                }
                 
-                // 🛡️ PROTECTION ANTI-SPAM - Vérifier le honeypot
+                // Copier le code postal final vers le champ principal si nécessaire
+                if (data.codePostalFinal) {
+                    data.codePostal = data.codePostalFinal;
+                }
+                
+                // Protection anti-spam
                 if (data._honeypot && data._honeypot !== '') {
                     console.log('🚫 Spam détecté via honeypot');
-                    // Ne rien faire, c'est un bot
-                    // Mais afficher quand même le message de succès pour ne pas alerter le bot
                     localStorage.removeItem('saunierFormData');
-                    currentStep = 7;
+                    currentFlowIndex = activeStepFlow.indexOf(8);
+                    currentStep = 8;
                     showStep(currentStep);
                     return;
                 }
                 
-                // Supprimer le honeypot avant d'envoyer les vraies données
                 delete data._honeypot;
                 
                 console.log('📊 Données du formulaire:', data);
                 
-                // 📨 ENVOI VERS GOOGLE SHEETS
+                // Envoi vers Google Sheets
                 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzNjqZAMsrm9SLFIBbAgJkQwfnxGJyf2_zbmmCUZ0HVLcn7AFLRkwNkkMJJ0-B6IQOd/exec';
                 
                 fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Obligatoire pour Google Apps Script
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -1661,41 +2264,79 @@
                 .then(() => {
                     console.log('✅ Lead envoyé avec succès vers Google Sheets !');
                     
-                    // --- AJOUT POUR GTM : ENVOI DU SIGNAL DE CONVERSION ---
-                    // A déclencher quand le formulaire est validé et le message affiché
+                    // Amélioration 6 : Personnaliser le message de succès selon le type de projet
+                    const successTitle = document.getElementById('successTitle');
+                    const successMessage = document.getElementById('successMessage');
+                    const successBadge = document.getElementById('successBadge');
+                    
+                    if (projectType === 'installation') {
+                        successTitle.textContent = '🎉 Demande de devis reçue !';
+                        successMessage.innerHTML = 'Merci pour votre confiance ! <strong>Nous préparons votre devis personnalisé</strong> et vous recontactons très rapidement pour affiner les détails de votre projet.';
+                        successBadge.textContent = 'Votre devis détaillé sous 48h maximum';
+                    } else if (projectType === 'depannage') {
+                        successTitle.textContent = '🚨 Demande urgente enregistrée !';
+                        successMessage.innerHTML = 'Votre demande de dépannage a été <strong>transmise en priorité à notre équipe</strong>. Nous vous contactons dans les plus brefs délais pour intervenir rapidement.';
+                        successBadge.textContent = 'Notre équipe vous contacte en priorité';
+                    } else {
+                        successTitle.textContent = '💬 Demande bien reçue !';
+                        successMessage.innerHTML = 'Merci pour votre message. <strong>Nos experts analysent votre demande</strong> et vous recontactent très prochainement pour vous apporter la meilleure réponse.';
+                        successBadge.textContent = 'Un conseiller analyse votre demande';
+                    }
+                    
+                    // Signal GTM de conversion
                     try {
                         window.parent.postMessage({
-                        'event': 'form_success',
-                        'category': 'lead',
-                        'action': 'submit'
+                            'event': 'form_success',
+                            'category': 'lead',
+                            'action': 'submit',
+                            'projectType': projectType
                         }, '*');
                     } catch (e) {
                         console.log('Erreur envoi message parent');
                     }
-                    // -----------------------------------------------------
 
                     localStorage.removeItem('saunierFormData');
-                    currentStep = 7;
+                    currentFlowIndex = activeStepFlow.indexOf(8);
+                    currentStep = 8;
                     showStep(currentStep);
                 })
                 .catch(error => {
                     console.error('❌ Erreur envoi lead:', error);
-                    // Afficher quand même le message de succès (mode no-cors ne retourne pas de réponse)
                     
-                    // --- AU CAS OU (SI ERREUR RESEAU MAIS SUCCES AFFICHE) ---
+                    // Personnaliser le message même en cas d'erreur
+                    const successTitle = document.getElementById('successTitle');
+                    const successMessage = document.getElementById('successMessage');
+                    const successBadge = document.getElementById('successBadge');
+                    
+                    if (projectType === 'installation') {
+                        successTitle.textContent = '🎉 Demande de devis reçue !';
+                        successMessage.innerHTML = 'Merci pour votre confiance ! <strong>Nous préparons votre devis personnalisé</strong> et vous recontactons très rapidement pour affiner les détails de votre projet.';
+                        successBadge.textContent = 'Votre devis détaillé sous 48h maximum';
+                    } else if (projectType === 'depannage') {
+                        successTitle.textContent = '🚨 Demande urgente enregistrée !';
+                        successMessage.innerHTML = 'Votre demande de dépannage a été <strong>transmise en priorité à notre équipe</strong>. Nous vous contactons dans les plus brefs délais pour intervenir rapidement.';
+                        successBadge.textContent = 'Notre équipe vous contacte en priorité';
+                    } else {
+                        successTitle.textContent = '💬 Demande bien reçue !';
+                        successMessage.innerHTML = 'Merci pour votre message. <strong>Nos experts analysent votre demande</strong> et vous recontactent très prochainement pour vous apporter la meilleure réponse.';
+                        successBadge.textContent = 'Un conseiller analyse votre demande';
+                    }
+                    
+                    // Signal GTM même en cas d'erreur (mode no-cors)
                     try {
                         window.parent.postMessage({
-                        'event': 'form_success',
-                        'category': 'lead',
-                        'action': 'submit'
+                            'event': 'form_success',
+                            'category': 'lead',
+                            'action': 'submit',
+                            'projectType': projectType
                         }, '*');
                     } catch (e) {
                         console.log('Erreur envoi message parent');
                     }
-                    // -----------------------------------------------------
 
                     localStorage.removeItem('saunierFormData');
-                    currentStep = 7;
+                    currentFlowIndex = activeStepFlow.indexOf(8);
+                    currentStep = 8;
                     showStep(currentStep);
                 });
             }
