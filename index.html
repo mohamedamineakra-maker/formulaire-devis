@@ -121,6 +121,25 @@
         position: relative;
     }
 
+    /* Ligne pour mettre 2 champs côte à côte */
+    #saunier-form-container .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    #saunier-form-container .form-row .form-group {
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 450px) {
+        #saunier-form-container .form-row {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+    }
+
     /* --- GRILLES AVEC PLUS D'AÉRATION --- */
     #saunier-form-container .quantities-grid {
         display: grid;
@@ -133,9 +152,9 @@
         background: #fafafa;
         border: 1px solid #e8e8e8;
         border-radius: 8px;
-        padding: 12px 8px;
+        padding: 8px 6px;
         text-align: center;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: all 0.3s ease;
         cursor: pointer;
     }
 
@@ -149,53 +168,53 @@
         border-color: #FF5722;
         background: #fff;
         box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
-        transform: translateY(-2px) scale(1.02);
+        transform: translateY(-2px);
     }
 
     #saunier-form-container .quantity-item:active {
-        transform: translateY(0) scale(0.98);
+        transform: translateY(0);
     }
 
-    /* --- ICÔNES PLUS GRANDES --- */
+    /* --- ICÔNES OPTIMISÉES --- */
     #saunier-form-container .quantity-icon {
         color: #FF5722;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
         display: flex;
         justify-content: center;
     }
 
     #saunier-form-container .quantity-icon svg {
-        width: 32px;
-        height: 32px;
+        width: 26px;
+        height: 26px;
     }
 
     #saunier-form-container .quantity-label {
         font-weight: 600;
         color: #1a1a1a;
-        font-size: 12px;
-        margin-bottom: 8px;
-        min-height: 26px;
+        font-size: 11px;
+        margin-bottom: 5px;
+        min-height: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         line-height: 1.2;
     }
 
-    /* --- BOUTONS + / - PLUS GRANDS --- */
+    /* --- BOUTONS + / - OPTIMISÉS --- */
     #saunier-form-container .quantity-controls {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 4px;
     }
 
     #saunier-form-container .qty-btn {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         border: 1px solid #e8e8e8;
         background: white;
         border-radius: 6px;
-        font-size: 15px;
+        font-size: 14px;
         cursor: pointer;
         transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         color: #FF5722;
@@ -203,15 +222,15 @@
         align-items: center;
         justify-content: center;
         font-weight: 600;
-        min-width: 28px;
-        min-height: 28px;
+        min-width: 24px;
+        min-height: 24px;
     }
 
     #saunier-form-container .qty-btn:hover {
         border-color: #FF5722;
         background: #FF5722;
         color: white;
-        transform: scale(1.15) rotate(3deg);
+        transform: scale(1.1) rotate(3deg);
         box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3);
     }
 
@@ -222,7 +241,7 @@
     /* Animation bounce au clic */
     @keyframes btnBounce {
         0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.2); }
+        50% { transform: scale(1.15); }
     }
 
     #saunier-form-container .qty-btn.bounce {
@@ -230,9 +249,9 @@
     }
 
     #saunier-form-container .quantity-controls input {
-        width: 36px;
+        width: 30px;
         text-align: center;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         border: none;
         padding: 0;
@@ -275,7 +294,7 @@
     #saunier-form-container .option-card {
         border: 1px solid #e8e8e8;
         border-radius: 8px;
-        padding: 12px 8px;
+        padding: 8px 6px;
         text-align: center;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -287,7 +306,7 @@
     #saunier-form-container .need-card {
         border: 2px solid #e8e8e8;
         border-radius: 12px;
-        padding: 18px 14px;
+        padding: 14px 12px;
         text-align: center;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -298,14 +317,14 @@
     #saunier-form-container .need-card:hover {
         border-color: #FF5722;
         background: white;
-        transform: translateY(-4px) scale(1.03) rotate(1deg);
+        transform: translateY(-2px);
         box-shadow: 
             0 2px 8px rgba(0, 0, 0, 0.1),
             0 8px 20px rgba(255, 87, 34, 0.2);
     }
 
     #saunier-form-container .need-card:active {
-        transform: translateY(-2px) scale(1.01);
+        transform: translateY(0);
     }
 
     #saunier-form-container .need-card.selected {
@@ -314,7 +333,6 @@
         box-shadow: 
             0 2px 8px rgba(0, 0, 0, 0.08),
             0 6px 16px rgba(255, 87, 34, 0.25);
-        transform: scale(1.02);
     }
 
     /* Animation checkmark pour les cartes sélectionnées */
@@ -344,26 +362,26 @@
     }
 
     #saunier-form-container .need-card .icon {
-        font-size: 36px;
-        margin-bottom: 10px;
+        font-size: 32px;
+        margin-bottom: 8px;
         color: #FF5722;
     }
 
     #saunier-form-container .need-card .icon svg {
-        width: 42px;
-        height: 42px;
+        width: 36px;
+        height: 36px;
     }
 
     #saunier-form-container .need-card .title {
         font-weight: 700;
         color: #1a1a1a;
-        margin-bottom: 5px;
-        font-size: 14px;
+        margin-bottom: 4px;
+        font-size: 13px;
         line-height: 1.3;
     }
 
     #saunier-form-container .need-card .description {
-        font-size: 11px;
+        font-size: 10px;
         color: #666;
         line-height: 1.4;
     }
@@ -371,14 +389,14 @@
     #saunier-form-container .option-card:hover {
         border-color: #FF5722;
         background: white;
-        transform: translateY(-2px) scale(1.05) rotate(1deg);
+        transform: translateY(-2px);
         box-shadow: 
             0 2px 6px rgba(0, 0, 0, 0.08),
             0 6px 16px rgba(255, 87, 34, 0.15);
     }
 
     #saunier-form-container .option-card:active {
-        transform: translateY(0) scale(1.02);
+        transform: translateY(0);
     }
 
     #saunier-form-container .option-card.selected {
@@ -395,26 +413,26 @@
     }
 
     #saunier-form-container .option-card .icon {
-        font-size: 26px;
-        margin-bottom: 6px;
+        font-size: 24px;
+        margin-bottom: 4px;
         color: #FF5722;
     }
 
     #saunier-form-container .option-card .icon svg {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
     }
 
     #saunier-form-container .option-card .title {
         font-weight: 600;
         color: #1a1a1a;
-        margin-bottom: 3px;
-        font-size: 12px;
+        margin-bottom: 2px;
+        font-size: 11px;
         line-height: 1.2;
     }
 
     #saunier-form-container .option-card .description {
-        font-size: 10px;
+        font-size: 9px;
         color: #666;
     }
 
@@ -655,22 +673,38 @@
         height: 10px;
     }
 
-    /* Checkbox RGPD */
+    /* Checkbox RGPD PLUS GRANDE */
     #saunier-form-container .checkbox-group {
         display: flex;
         align-items: start;
-        gap: 6px;
-        margin-top: 8px;
+        gap: 10px;
+        margin-top: 12px;
     }
     
     #saunier-form-container .checkbox-group input {
-        margin-top: 2px;
+        margin-top: 3px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        flex-shrink: 0;
     }
 
     #saunier-form-container .checkbox-group label {
-        font-size: 10px;
+        font-size: 13px;
         font-weight: 400;
-        color: #666;
+        color: #333;
+        line-height: 1.6;
+        cursor: pointer;
+    }
+
+    #saunier-form-container .checkbox-group label a {
+        color: #FF5722;
+        text-decoration: underline;
+        font-weight: 500;
+    }
+
+    #saunier-form-container .checkbox-group label a:hover {
+        color: #E64A19;
     }
 
     /* Badges de réassurance */
@@ -1355,15 +1389,8 @@
 
                 <!-- ÉTAPE 6 : DÉTAILS DU PROJET (pour installation uniquement) -->
                 <div class="step" data-step="6">
-                    <div class="step-indicator">📍 Détails du projet</div>
+                    <div class="step-indicator">📍 Détails du projet (optionnel)</div>
                     
-                    <div class="form-group">
-                        <label>Code postal *</label>
-                        <input type="text" name="codePostal" id="codePostal" placeholder="Ex: 74000" required pattern="[0-9]{5}" maxlength="5">
-                        <span class="error-message">Le code postal doit contenir 5 chiffres</span>
-                        <span class="success-icon-inline">✓</span>
-                    </div>
-
                     <div class="form-group">
                         <label>Budget prévisionnel (optionnel)</label>
                         <select name="budget">
@@ -1420,23 +1447,25 @@
                         <span class="success-icon-inline">✓</span>
                     </div>
 
-                    <div class="form-group">
-                        <label>Nom *</label>
-                        <input type="text" name="nom" id="nom" placeholder="Votre nom" required>
-                        <span class="error-message">Le nom est requis</span>
-                        <span class="success-icon-inline">✓</span>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nom *</label>
+                            <input type="text" name="nom" id="nom" placeholder="Votre nom" required>
+                            <span class="error-message">Le nom est requis</span>
+                            <span class="success-icon-inline">✓</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Prénom *</label>
+                            <input type="text" name="prenom" id="prenom" placeholder="Votre prénom" required>
+                            <span class="error-message">Le prénom est requis</span>
+                            <span class="success-icon-inline">✓</span>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Prénom *</label>
-                        <input type="text" name="prenom" id="prenom" placeholder="Votre prénom" required>
-                        <span class="error-message">Le prénom est requis</span>
-                        <span class="success-icon-inline">✓</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" name="email" id="email" placeholder="votre@email.fr" required>
+                        <label>Email</label>
+                        <input type="email" name="email" id="email" placeholder="votre@email.fr">
                         <span class="error-message">Format d'email invalide</span>
                         <span class="success-icon-inline">✓</span>
                     </div>
@@ -1470,7 +1499,7 @@
                         </div>
                         <div class="reassurance-item">
                             <span class="reassurance-icon">✓</span>
-                            <span class="reassurance-text">Réponse sous 24h</span>
+                            <span class="reassurance-text">Devis personnalisé</span>
                         </div>
                     </div>
                 </div>
@@ -1502,7 +1531,7 @@
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span>Devis rapide et personnalisé</span>
+                    <span>Devis sur mesure</span>
                 </div>
                 <span>•</span>
                 <div class="form-footer-item">
@@ -2269,15 +2298,15 @@
                     
                     if (projectType === 'installation') {
                         successTitle.textContent = '🎉 Demande de devis reçue !';
-                        successMessage.innerHTML = 'Merci pour votre confiance ! <strong>Nous préparons votre devis personnalisé</strong> et vous recontactons très rapidement pour affiner les détails de votre projet.';
-                        successBadge.textContent = 'Votre devis détaillé sous 48h maximum';
+                        successMessage.innerHTML = 'Merci pour votre confiance ! <strong>Nous préparons votre devis sur mesure</strong> adapté à vos besoins spécifiques. Notre équipe vous recontacte très prochainement.';
+                        successBadge.textContent = 'Chaque devis est étudié personnellement';
                     } else if (projectType === 'depannage') {
                         successTitle.textContent = '🚨 Demande urgente enregistrée !';
                         successMessage.innerHTML = 'Votre demande de dépannage a été <strong>transmise en priorité à notre équipe</strong>. Nous vous contactons dans les plus brefs délais pour intervenir rapidement.';
                         successBadge.textContent = 'Notre équipe vous contacte en priorité';
                     } else {
                         successTitle.textContent = '💬 Demande bien reçue !';
-                        successMessage.innerHTML = 'Merci pour votre message. <strong>Nos experts analysent votre demande</strong> et vous recontactent très prochainement pour vous apporter la meilleure réponse.';
+                        successMessage.innerHTML = 'Merci pour votre message. <strong>Nos experts analysent votre demande</strong> et vous recontactent très prochainement avec une réponse adaptée.';
                         successBadge.textContent = 'Un conseiller analyse votre demande';
                     }
                     
@@ -2308,15 +2337,15 @@
                     
                     if (projectType === 'installation') {
                         successTitle.textContent = '🎉 Demande de devis reçue !';
-                        successMessage.innerHTML = 'Merci pour votre confiance ! <strong>Nous préparons votre devis personnalisé</strong> et vous recontactons très rapidement pour affiner les détails de votre projet.';
-                        successBadge.textContent = 'Votre devis détaillé sous 48h maximum';
+                        successMessage.innerHTML = 'Merci pour votre confiance ! <strong>Nous préparons votre devis sur mesure</strong> adapté à vos besoins spécifiques. Notre équipe vous recontacte très prochainement.';
+                        successBadge.textContent = 'Chaque devis est étudié personnellement';
                     } else if (projectType === 'depannage') {
                         successTitle.textContent = '🚨 Demande urgente enregistrée !';
                         successMessage.innerHTML = 'Votre demande de dépannage a été <strong>transmise en priorité à notre équipe</strong>. Nous vous contactons dans les plus brefs délais pour intervenir rapidement.';
                         successBadge.textContent = 'Notre équipe vous contacte en priorité';
                     } else {
                         successTitle.textContent = '💬 Demande bien reçue !';
-                        successMessage.innerHTML = 'Merci pour votre message. <strong>Nos experts analysent votre demande</strong> et vous recontactent très prochainement pour vous apporter la meilleure réponse.';
+                        successMessage.innerHTML = 'Merci pour votre message. <strong>Nos experts analysent votre demande</strong> et vous recontactent très prochainement avec une réponse adaptée.';
                         successBadge.textContent = 'Un conseiller analyse votre demande';
                     }
                     
